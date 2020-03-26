@@ -1,0 +1,21 @@
+<br>
+<br>
+<br>
+<div class="container main-content">
+    <div class="row">
+        <div class="col-md-2" *ngFor="let word of words; let z=index">
+            <div class="wordstyle" *ngIf="reloadWords(z)" [style]="getWordStyle(word)">{{ word }}</div>
+        </div>
+        <hr>
+    </div>
+    <p><input class="whitetext form-control" type="text" [disabled]="timeLeft==0" (keyup.Space)="nextWord()"
+            (input)="startTimer()" [(ngModel)]="wordtyped" [ngStyle]="{backgroundColor: getColor()}">
+        <br>
+        <button class="btn btn-primary" (click)="hideOrShow()" [style]="timerStyle">{{ timeLeft }} seconds left</button>
+        <button class="btn btn-success" (click)="restart()">Restart</button>
+    </p>
+    <p *ngIf="timeLeft==0">{{ wpm }} WPM</p>
+    <br>
+    <br>
+    <br>
+</div>

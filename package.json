@@ -1,0 +1,17 @@
+{
+  "name": "knowyourwpm",
+  "version": "1.0.0",
+  "description": "a mean application where it calculates your wpm and then stores it in the leaderboards",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rafael John A. Balayo II",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.6"
+  }
+}
