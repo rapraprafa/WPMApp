@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { getCurrencySymbol } from '@angular/common';
+import { Component, OnInit, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
+import { LeaderboardService } from '../leaderboard.service';
+import { LeaderBoard } from '../leaderboard';
+
 
 @Component({
   selector: 'app-wpmtest',
@@ -104,7 +106,7 @@ export class WpmtestComponent implements OnInit {
     "would", "write", "writer", "wrong", "yard", "yeah", "year", "yes", "yet", "you", "young", "your",
     "yourself"];
 
-  wpm = 0;
+  wpmclient = 0;
   correctmatch = true;
   wordtyped = "";
   timeLeft: number = 60;
@@ -114,9 +116,13 @@ export class WpmtestComponent implements OnInit {
   paused: boolean = false;
   executed:boolean = false;
 
+  leaderboards: LeaderBoard[];
+  first_name: string;
+  last_name: string;
+  wpm: string;
 
 
-  constructor() {
+  constructor(private leaderBoardService: LeaderboardService) {
   }
 
   ngOnInit(): void {
@@ -152,7 +158,6 @@ export class WpmtestComponent implements OnInit {
     return function () {
       if (!this.executed) {
         this.executed = true;
-        console.log("pasok");
         this.interval = setInterval(() => {
           if (!this.paused) {
             if (this.timeLeft > 0) {
@@ -193,21 +198,17 @@ export class WpmtestComponent implements OnInit {
     this.correctmatch = true;
     this.wordtyped = "";
     this.paused=false;
-    this.wpm=0;
+    this.wpmclient=0;
     clearInterval(this.interval);
   }
 
 
   nextWord() {
     if (this.words[this.wordsTried] == this.wordtyped.slice(0, -1)) {
-      this.wpm += 1;
-      console.log(this.wpm);
-      console.log("matched");
+      this.wpmclient += 1;
       this.correctmatch = true;
     }
     else {
-      console.log(this.wpm);
-      console.log("not matched");
       this.correctmatch = false;
     }
     this.wordtyped = "";
@@ -215,15 +216,37 @@ export class WpmtestComponent implements OnInit {
     if (this.wordsTried == 12) {
       this.wordsTried = 0;
       this.words.splice(0, 12);
-      console.log(this.words);
     }
     else {
       ;
     }
   }
 
+  onSubmit(){
+    this.restart();
+  }
 
-  checkWord() {
-
+  addLeaderBoard(){
+    const newLeaderBoard = {
+      first_name: this.first_name,
+      last_name: this.last_name,
+      wpm: this.wpmclient
+    }
+    this.leaderBoardService.addLeaderBoard(newLeaderBoard)
+    .subscribe(res => {
+      var obj = {
+        _id: res["_id"],
+        first_name: res["first_name"],
+        last_name: res["last_name"],
+        wpm: res["wpm"]
+      }
+      if(this.first_name!="" && this.last_name!=""){
+        this.leaderboards.push(obj);
+      }
+      this.leaderBoardService.getLeaderBoards()
+      .subscribe(leaderboards => this.leaderboards = leaderboards)
+    });
+    this.first_name = "";
+    this.last_name = "";
   }
 }

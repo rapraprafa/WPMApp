@@ -2,6 +2,7 @@
 <br>
 <br>
 <div class="container main-content">
+    <br>
     <div class="row">
         <div class="col-md-2" *ngFor="let word of words; let z=index">
             <div class="wordstyle" *ngIf="reloadWords(z)" [style]="getWordStyle(word)">{{ word }}</div>
@@ -14,7 +15,18 @@
         <button class="btn btn-primary" (click)="hideOrShow()" [style]="timerStyle">{{ timeLeft }} seconds left</button>
         <button class="btn btn-success" (click)="restart()">Restart</button>
     </p>
-    <p *ngIf="timeLeft==0">{{ wpm }} WPM</p>
+    <br>
+    <br>
+    <br>
+    <div *ngIf="timeLeft==0">
+        <p>{{ wpmclient }} WPM</p>
+        <p>WANT TO SEND YOUR WPM TO THE LEADERBOARD? State your name below.</p>
+        <input type="text" class="form-control" [(ngModel)]="first_name" placeholder="First Name" name="first_name">
+        <br>
+        <input type="text" class="form-control" [(ngModel)]="last_name" placeholder="Last Name" name="last_name">
+        <br>
+        <input type="submit" class="btn btn-primary" value="Submit WPM" (click)="addLeaderBoard();onSubmit()">
+    </div>
     <br>
     <br>
     <br>
