@@ -1,6 +1,7 @@
 import { Component, OnInit, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { LeaderboardService } from '../leaderboard.service';
 import { LeaderBoard } from '../leaderboard';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -122,7 +123,9 @@ export class WpmtestComponent implements OnInit {
   wpm: string;
 
 
-  constructor(private leaderBoardService: LeaderboardService) {
+  constructor(private leaderBoardService: LeaderboardService, 
+              private _activatedRoute: ActivatedRoute, 
+              private _router: Router) {
   }
 
   ngOnInit(): void {

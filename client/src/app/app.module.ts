@@ -5,11 +5,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WpmtestComponent } from './wpmtest/wpmtest.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'leaderboard', component: LeaderboardComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    WpmtestComponent
+    WpmtestComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,

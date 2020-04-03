@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            First Name
+        </div>
+        <div class="col-md-3">
+            Last Name
+        </div>
+        <div class="col-md-3">
+            WPM
+        </div>
+    </div>
+    <div *ngFor="let leader of leaderboards, let i=index" class="row">
+        <div class="col-md-3">
+        {{ i+1 }}.        {{ leader.first_name }}
+        </div>
+        <div class="col-md-3">
+            {{ leader.last_name }}
+        </div>
+        <div class="col-md-3">
+            {{ leader.wpm }}
+        </div>
+    </div>
+</div>
