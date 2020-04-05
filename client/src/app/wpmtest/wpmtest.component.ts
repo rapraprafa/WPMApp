@@ -216,9 +216,9 @@ export class WpmtestComponent implements OnInit {
     }
     this.wordtyped = "";
     this.wordsTried += 1;
-    if (this.wordsTried == 12) {
+    if (this.wordsTried == 6) {
       this.wordsTried = 0;
-      this.words.splice(0, 12);
+      this.words.splice(0, 6);
     }
     else {
       ;
@@ -243,11 +243,6 @@ export class WpmtestComponent implements OnInit {
         last_name: res["last_name"],
         wpm: res["wpm"]
       }
-      if(this.first_name!="" && this.last_name!=""){
-        this.leaderboards.push(obj);
-      }
-      this.leaderBoardService.getLeaderBoards()
-      .subscribe(leaderboards => this.leaderboards = leaderboards)
     });
     this.first_name = "";
     this.last_name = "";

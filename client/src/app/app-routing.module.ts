@@ -5,6 +5,7 @@ import { WpmtestComponent } from './wpmtest/wpmtest.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/clone', pathMatch: 'full' },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'clone', component:  WpmtestComponent }
 ];
