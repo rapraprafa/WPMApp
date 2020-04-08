@@ -123,6 +123,8 @@ export class WpmtestComponent implements OnInit {
   wpm: string;
 
 
+
+
   constructor(private leaderBoardService: LeaderboardService, 
               private _activatedRoute: ActivatedRoute, 
               private _router: Router) {
@@ -175,7 +177,15 @@ export class WpmtestComponent implements OnInit {
   })();
 
   getColor() {
-    return (this.correctmatch) ? 'green' : 'red';
+    if (this.wordtyped == ""){
+      return 'none';
+    }
+    else if (this.words[this.wordsTried].startsWith(this.wordtyped) || this.wordtyped == this.words[this.wordsTried] + " "){
+      return 'green';
+    }
+    else{
+      return 'red';
+    }
   }
 
   hideOrShow() {

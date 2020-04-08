@@ -1,4 +1,16 @@
-<a routerLink="/clone" routerLinkActive="active">WPM Test</a> <!-- this is for routing -->
-<br>
-<a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a routerLink="/clone" routerLinkActive="active">Know Your WPM</a></li>
+                <li class=""></li>
+                <li class="nav-item"><a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a></li>
+                <li class=""></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <router-outlet></router-outlet>
