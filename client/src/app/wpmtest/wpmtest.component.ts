@@ -109,6 +109,7 @@ export class WpmtestComponent implements OnInit {
 
   wpmclient = 0;
   correctmatch = true;
+  showDontSpam = false;
   wordtyped = "";
   timeLeft: number = 60;
   interval;
@@ -116,6 +117,11 @@ export class WpmtestComponent implements OnInit {
   wordsTried = 0;
   paused: boolean = false;
   executed:boolean = false;
+  typedcharacters = 0;
+  typedcharactersFinal = 0;
+  wrongcharacters = 0;
+  wrongcharactersFinal = 0;
+  wrongwords = 0;
 
   leaderboards: LeaderBoard[];
   first_name: string;
@@ -133,6 +139,8 @@ export class WpmtestComponent implements OnInit {
   ngOnInit(): void {
     this.shuffle(this.words);
   }
+
+
 
   shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -159,6 +167,17 @@ export class WpmtestComponent implements OnInit {
   }
 
 
+  countChar(){
+    this.typedcharacters += 1;
+    if(!(this.words[this.wordsTried].startsWith(this.wordtyped))){
+      this.wrongcharacters += 1;
+    }
+    this.wpmclient = Math.ceil((this.typedcharactersFinal/5)-this.wrongcharactersFinal);
+    if(this.wpmclient<0){
+      this.wpmclient = 0;
+    }
+  }
+
   startTimer = (function () {
     return function () {
       if (!this.executed) {
@@ -177,7 +196,7 @@ export class WpmtestComponent implements OnInit {
   })();
 
   getColor() {
-    if (this.wordtyped == ""){
+    if (this.wordtyped == " "){
       return 'none';
     }
     else if (this.words[this.wordsTried].startsWith(this.wordtyped) || this.wordtyped == this.words[this.wordsTried] + " "){
@@ -209,20 +228,30 @@ export class WpmtestComponent implements OnInit {
     this.wordsTried = 0;
     this.timeLeft = 60;
     this.correctmatch = true;
+    this.showDontSpam = false;
     this.wordtyped = "";
     this.paused=false;
     this.wpmclient=0;
+    this.typedcharacters = 0;
+    this.typedcharactersFinal = 0;
+    this.wrongcharacters = 0;
+    this.wrongcharactersFinal = 0;
+    this.wrongwords = 0;
     clearInterval(this.interval);
   }
 
 
   nextWord() {
+    this.typedcharactersFinal += this.typedcharacters;
+    this.typedcharacters = 0;
     if (this.words[this.wordsTried] == this.wordtyped.slice(0, -1)) {
-      this.wpmclient += 1;
+      this.wrongcharacters = 0;
       this.correctmatch = true;
     }
     else {
+      this.wrongcharactersFinal += this.wrongcharacters;
       this.correctmatch = false;
+      this.wrongwords += 1;
     }
     this.wordtyped = "";
     this.wordsTried += 1;
@@ -232,6 +261,10 @@ export class WpmtestComponent implements OnInit {
     }
     else {
       ;
+    }
+    if(this.wrongwords == 20){
+      this.timeLeft = 0;
+      this.showDontSpam = true;
     }
   }
 

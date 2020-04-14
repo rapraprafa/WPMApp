@@ -10,18 +10,21 @@
         <hr>
     </div>
     <p><input class="whitetext form-control" type="text" [disabled]="timeLeft==0" (keyup.Space)="nextWord()"
-            (input)="startTimer()" [(ngModel)]="wordtyped" [ngStyle]="{backgroundColor: getColor()}">
+            (input)="startTimer();countChar();" [(ngModel)]="wordtyped" [ngStyle]="{backgroundColor: getColor()}">
         <br>
         <button class="btn btn-primary" (click)="hideOrShow()" [style]="timerStyle">{{ timeLeft }} seconds left</button>
         <button class="btn btn-success" (click)="restart()">Restart</button>
     </p>
     
-    
+    {{wpmclient}}
 
     <br>
     <br>
     <br>
-    <div *ngIf="timeLeft==0">
+    <div *ngIf="timeLeft==0 && showDontSpam">
+        <p>Too many errors. And don't spam, bitch.</p>
+    </div>
+    <div *ngIf="timeLeft==0 && !showDontSpam">
         <p>{{ wpmclient }} WPM</p>
         <p>WANT TO SEND YOUR WPM TO THE LEADERBOARD? State your name below.</p>
         <input type="text" class="form-control" [(ngModel)]="first_name" placeholder="First Name" name="first_name">

@@ -11,14 +11,14 @@
         </div>
     </div>
     <div *ngFor="let leader of leaderboards, let i=index" class="row">
-            <div class="col-md-3">
-                {{ i+1 }}. {{ leader.first_name }}
-            </div>
-            <div class="col-md-3">
-                {{ leader.last_name }}
-            </div>
-            <div class="col-md-3">
-                {{ leader.wpm }}
+        <div class="col-md-3">
+            {{ i+1 }}. {{ leader.first_name }}
+        </div>
+        <div class="col-md-3">
+            {{ leader.last_name }}
+        </div>
+        <div class="col-md-3">
+            {{ leader.wpm }}
         </div>
     </div>
     <input type="button" value="buttonsort" (click)="onSort()">
